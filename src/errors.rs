@@ -26,9 +26,9 @@ use crate::traits::{ErrorSpan, Span};
 #[error("error parsing KDL")]
 pub struct Error {
     #[source_code]
-    pub(crate) source_code: NamedSource,
+    pub source_code: NamedSource,
     #[related]
-    pub(crate) errors: Vec<miette::Report>,
+    pub errors: Vec<miette::Report>,
 }
 
 /// An error type that is returned by decoder traits and emitted to the context

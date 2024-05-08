@@ -136,7 +136,7 @@ pub fn node<T, S>(ast: &SpannedNode<S>) -> Result<T, Vec<DecodeError<S>>>
     where T: Decode<S>,
           S: ErrorSpan,
 {
-    let mut ctx = Context::new();
+    let mut ctx: Context<S> = Context::new();
     match Decode::decode_node(ast, &mut ctx) {
         Ok(_) if ctx.has_errors() => {
             Err(ctx.into_errors())
@@ -150,7 +150,7 @@ pub fn node<T, S>(ast: &SpannedNode<S>) -> Result<T, Vec<DecodeError<S>>>
 }
 
 impl<S: ErrorSpan> Context<S> {
-    pub(crate) fn new() -> Context<S> {
+    pub fn new() -> Context<S> {
         Context {
             errors: Vec::new(),
             extensions: HashMap::new(),
@@ -168,7 +168,7 @@ impl<S: ErrorSpan> Context<S> {
     pub fn has_errors(&self) -> bool {
         !self.errors.is_empty()
     }
-    pub(crate) fn into_errors(self) -> Vec<DecodeError<S>> {
+    pub fn into_errors(self) -> Vec<DecodeError<S>> {
         self.errors
     }
     /// Set context value
