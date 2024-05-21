@@ -26,7 +26,7 @@ use crate::traits::{ErrorSpan, Span};
 #[error("error parsing KDL")]
 pub struct Error {
     #[source_code]
-    pub source_code: NamedSource,
+    pub source_code: NamedSource<String>,
     #[related]
     pub errors: Vec<miette::Report>,
 }
